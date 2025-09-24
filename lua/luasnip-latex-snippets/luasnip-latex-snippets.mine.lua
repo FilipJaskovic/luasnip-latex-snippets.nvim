@@ -123,7 +123,7 @@ function M.retrieve(is_math)
     snips,
     s(
       { trig = "hpr", name = "\\hyperref[]{}", snippetType = "snippet" },
-      fmt("\\hyperref[{1}]{{{2}}} {0}", { i(1), i(2), i(0) }),
+      fmt("\\hyperref[{}]{{{}}} {}", { i(1), i(2), i(0) }),
       { condition = not_math }
     )
   )
