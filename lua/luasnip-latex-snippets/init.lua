@@ -160,8 +160,12 @@ M.setup_markdown = function()
   local is_math = utils.with_opts(utils.is_math, true)
   local not_math = utils.with_opts(utils.not_math, true)
 
+  local markdown_filetypes = { "markdown", "quarto" }
+
   local math_i = require("luasnip-latex-snippets/math_i").retrieve(is_math)
-  ls.add_snippets("markdown", math_i, { default_priority = 0 })
+  for _, ft in ipairs(markdown_filetypes) do
+    ls.add_snippets(ft, math_i, { default_priority = 0 })
+  end
 
   local autosnippets = _autosnippets(is_math, not_math)
   local trigger_of_snip = function(s)
@@ -192,10 +196,12 @@ M.setup_markdown = function()
   }
   vim.list_extend(filtered, normal_wA_tex)
 
-  ls.add_snippets("markdown", filtered, {
-    type = "autosnippets",
-    default_priority = 0,
-  })
+  for _, ft in ipairs(markdown_filetypes) do
+    ls.add_snippets(ft, filtered, {
+      type = "autosnippets",
+      default_priority = 0,
+    })
+  end
 end
 
 return M
