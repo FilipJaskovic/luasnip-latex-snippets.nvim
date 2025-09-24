@@ -137,7 +137,7 @@ function M.retrieve(is_math)
     snips,
     s(
       { trig = "rmk", name = "remark env", snippetType = "snippet" },
-      fmt("\\begin{remark}\n\t{}\n\\end{remark}", { i(0) }),
+      fmt("\\begin{{remark}}\n\t{}\n\\end{{remark}}", { i(0) }),
       { condition = not_math }
     )
   )
@@ -146,7 +146,7 @@ function M.retrieve(is_math)
     snips,
     s(
       { trig = "dfn", name = "definition env", snippetType = "snippet" },
-      fmt("\\begin{definition}\n\t{}\n\\end{definition}", { i(0) }),
+      fmt("\\begin{{definition}}\n\t{}\n\\end{{definition}}", { i(0) }),
       { condition = not_math }
     )
   )
