@@ -1,4 +1,4 @@
-Awesome — here’s your complete quick-reference for all snippets you now have loaded: the “new” pack plus your overlay (mine) and your custom file. I grouped them by category. Columns:
+Here’s a complete quick-reference for all snippets: the “new” pack plus your overlay (mine) and your custom file. I grouped them by category. Columns:
 - Trigger: what you type (regex/patterns shown where relevant)
 - Expands to: final LaTeX inserted
 - Mode: Math / Text / Both
