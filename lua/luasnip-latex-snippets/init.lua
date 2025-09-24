@@ -17,13 +17,42 @@ end
 
 local script_dir = dirname(debug.getinfo(1, "S").source:sub(2))
 
+local function resolve_chunk(file_name)
+  local paths = {}
+
+  if script_dir ~= "" then
+    table.insert(paths, script_dir .. file_name)
+  end
+
+  if vim and vim.api and vim.api.nvim_get_runtime_file then
+    local matches = vim.api.nvim_get_runtime_file(
+      "lua"
+        .. dir_sep
+        .. "luasnip-latex-snippets"
+        .. dir_sep
+        .. file_name,
+      false
+    )
+    vim.list_extend(paths, matches)
+  end
+
+  for _, path in ipairs(paths) do
+    local chunk = loadfile(path)
+    if chunk then
+      return chunk
+    end
+  end
+
+  return nil
+end
+
 local function load_snippet_module(module_name, file_name)
   local ok, mod = pcall(require, module_name)
   if ok then
     return mod
   end
 
-  local chunk = loadfile(script_dir .. file_name)
+  local chunk = resolve_chunk(file_name)
   if not chunk then
     return nil
   end

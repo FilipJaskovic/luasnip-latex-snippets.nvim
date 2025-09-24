@@ -20,25 +20,29 @@ local frac_node = {
     local match = snip.trigger
     local stripped = match:sub(1, #match - 1)
 
-    i = #stripped
+    local index = #stripped
     local depth = 0
-    while i >= 0 do
-      if stripped:sub(i, i) == ")" then
+    while index >= 0 do
+      if stripped:sub(index, index) == ")" then
         depth = depth + 1
       end
-      if stripped:sub(i, i) == "(" then
+      if stripped:sub(index, index) == "(" then
         depth = depth - 1
       end
       if depth == 0 then
         break
       end
-      i = i - 1
+      index = index - 1
     end
 
     if depth ~= 0 then
       return string.format("%s\\frac{}", stripped)
     else
-      return string.format("%s\\frac{%s}", stripped:sub(1, i - 1), stripped:sub(i + 1, #stripped - 1))
+      return string.format(
+        "%s\\frac{%s}",
+        stripped:sub(1, index - 1),
+        stripped:sub(index + 1, #stripped - 1)
+      )
     end
   end, {}),
   t("{"),
