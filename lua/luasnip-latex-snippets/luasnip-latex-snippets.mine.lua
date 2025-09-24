@@ -31,11 +31,10 @@ function M.retrieve(is_math)
   end
 
   -- Boundary: “not preceded by a backslash or letter”
-  local function clean_boundary(_, snip)
-    local lnum, col = unpack(vim.api.nvim_win_get_cursor(0))
-    local line = vim.api.nvim_buf_get_lines(0, lnum - 1, lnum, false)[1] or ""
-    local pos = col - #snip.trigger
-    local prev = (pos > 0) and line:sub(pos, pos) or ""
+  local function clean_boundary(line_to_cursor, matched_trigger)
+    local trig = matched_trigger or ""
+    local pos = #line_to_cursor - #trig
+    local prev = (pos > 0) and line_to_cursor:sub(pos, pos) or ""
     return not prev:match("[%a\\]")
   end
 
