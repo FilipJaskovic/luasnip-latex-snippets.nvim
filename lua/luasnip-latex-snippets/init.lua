@@ -5,6 +5,34 @@ local default_opts = {
   allow_on_markdown = true,
 }
 
+local dir_sep = package.config:sub(1, 1)
+
+local function dirname(path)
+  if dir_sep == "\\" then
+    return path:match("^(.*\\)") or ""
+  end
+
+  return path:match("^(.*" .. dir_sep .. ")") or ""
+end
+
+local script_dir = dirname(debug.getinfo(1, "S").source:sub(2))
+
+local function load_snippet_module(module_name, file_name)
+  local ok, mod = pcall(require, module_name)
+  if ok then
+    return mod
+  end
+
+  local chunk = loadfile(script_dir .. file_name)
+  if not chunk then
+    return nil
+  end
+
+  local loaded = chunk()
+  package.loaded[module_name] = loaded
+  return loaded
+end
+
 M.setup = function(opts)
   opts = vim.tbl_deep_extend("force", default_opts, opts or {})
 
@@ -60,6 +88,14 @@ local _autosnippets = function(is_math, not_math)
     )
   end
 
+  local custom = load_snippet_module(
+    "luasnip-latex-snippets.luasnip-latex-snippets.custom",
+    "luasnip-latex-snippets.custom.lua"
+  )
+  if custom then
+    vim.list_extend(autosnippets, custom.retrieve(is_math))
+  end
+
   return autosnippets
 end
 
@@ -81,6 +117,34 @@ M.setup_tex = function(is_math, not_math)
   local math_i = require("luasnip-latex-snippets/math_i").retrieve(is_math)
 
   ls.add_snippets("tex", math_i, { default_priority = 0 })
+
+  local mine = load_snippet_module(
+    "luasnip-latex-snippets.luasnip-latex-snippets.mine",
+    "luasnip-latex-snippets.mine.lua"
+  )
+  if mine then
+    local snips = mine.retrieve(is_math)
+    local regular, autos = {}, {}
+
+    for _, snip in ipairs(snips) do
+      if snip.snippetType == "autosnippet" then
+        table.insert(autos, snip)
+      else
+        table.insert(regular, snip)
+      end
+    end
+
+    if #regular > 0 then
+      ls.add_snippets("tex", regular, { default_priority = 0 })
+    end
+
+    if #autos > 0 then
+      ls.add_snippets("tex", autos, {
+        type = "autosnippets",
+        default_priority = 0,
+      })
+    end
+  end
 
   ls.add_snippets("tex", _autosnippets(is_math, not_math), {
     type = "autosnippets",
