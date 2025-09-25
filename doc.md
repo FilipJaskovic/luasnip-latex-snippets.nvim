@@ -271,13 +271,6 @@ Your custom file
 | --- | --- | --- | --- | --- |
 | ddt | \frac{\mathrm{d}}{\mathrm{d}t} | Math | No | Custom example; NoBackslash |
 
-Notes and tips
-- Where both sets define the same trigger and expansion, you’ll see the same behavior (that’s fine per your choice).
-- Where you picked “new”, the overlay excluded those triggers; so you now get:
-  - sum (series scaffold), == (align step), <= and >= (\le and \ge), lra (angle brackets), dm (block math), dint (full integral), and new auto-bracing for subs/sups.
-- Where you picked “yours”, your overlay wins by priority:
-  - abs (|…| with \vert), norm (\lVert … \rVert), case (dcases with if/otherwise), ** (^{\ast}), wordy geq/leq/neq (boundary-checked).
+Notes
 - Custom macros used by your overlay: \Var, \Cov, \identity, \quotient, \at, \Homomorphism, \Object, \Morphism — make sure these are defined in your preamble.
 - Packages: bm for \bm, amsfonts/amssymb for \mathbb, bbm (or similar) for \mathbbm{1}, siunitx for \SI.
-
-If you want, I can generate a searchable Markdown/HTML version of this cheat sheet, or a :help-style Vim help file with tags (e.g., :h tex-snips).
