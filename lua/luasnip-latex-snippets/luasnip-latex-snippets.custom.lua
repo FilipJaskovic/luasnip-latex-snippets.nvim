@@ -34,9 +34,18 @@ function M.retrieve(is_math)
     priority = 10,
   }) --[[@as function]]
 
-  -- Node-style helper (for regex, snippetType, etc.) with same conditions.
+  -- Boundary helper: not immediately after a letter or a backslash.
+  local function no_letter_before(line_to_cursor, matched_trigger)
+    local start = #line_to_cursor - #matched_trigger + 1
+    local prev = line_to_cursor:sub(start - 1, start - 1)
+    return not prev:match("[%a\\]")
+  end
+
+  -- Node-style helper (for regex, snippetType, etc.) with same conditions
+  -- plus boundary check to avoid mid-word expansions.
   local S = ls.extend_decorator.apply(s, {
-    condition = pipe({ is_math, no_backslash }),
+    condition = pipe({ is_math, no_backslash, no_letter_before }),
+    show_condition = is_math,
   }) --[[@as function]]
 
   return {
@@ -45,6 +54,30 @@ function M.retrieve(is_math)
       { trig = "ddt", name = "d/dt" },
       "\\frac{\\mathrm{d}}{\\mathrm{d}t} $0"
     ),
+
+    -- f(x) helpers: fx -> f(x), gx -> g(x), hx -> h(x)
+    S({
+      trig = "([fgh])([A-Za-z])",
+      name = "f(x) from fx/gx/hx",
+      trigEngine = "pattern",
+      snippetType = "autosnippet",
+      priority = 120,
+    }, f(function(_, snip)
+      local fn, arg = snip.captures[1], snip.captures[2]
+      return string.format("%s(%s) ", fn, arg)
+    end)),
+
+    -- Prime variant: f'x -> f'(x), etc.
+    S({
+      trig = "([fgh])'([A-Za-z])",
+      name = "f'(x) from f'x/g'y/h'z",
+      trigEngine = "pattern",
+      snippetType = "autosnippet",
+      priority = 120,
+    }, f(function(_, snip)
+      local fn, arg = snip.captures[1], snip.captures[2]
+      return string.format("%s'(%s) ", fn, arg)
+    end)),
 
     -- Examples you can copy/uncomment for later:
     -- S({ trig = "ddx", name = "d/dx", snippetType = "autosnippet" },
