@@ -253,7 +253,7 @@ function M.retrieve(is_math)
   table.insert(
     snips,
     s(
-      { trig = "{}", name = "{}", wordTrig = false, snippetType = "autosnippet" },
+      { trig = "{}", name = "{}", wordTrig = false },
       fmt("\\{{ {} \\}} {}", { i(1), i(0) }),
       { condition = in_math }
     )

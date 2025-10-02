@@ -38,7 +38,7 @@ Math delimiters and wrappers
 | fm | \( … \) | Both | Yes | Overlay |
 | lrd | \left( … \right) | Math | Yes | Overlay |
 | lrq | \left[ … \right] | Math | Yes | Overlay |
-| {} | \{ … \} | Math | Yes | Overlay; wordTrig=false |
+| {} | \{ … \} | Math | No | Overlay; wordTrig=false |
 | <> | \langle … \rangle | Math | Yes | Overlay |
 | lr, | \left\langle … \right\rangle | Math | Yes | Overlay |
 | lr | \left( … \right) | Math | No | New pack |
