@@ -79,6 +79,36 @@ S({
   return string.format("%s'(%s) ", fn, arg)
 end)),
 
+    -- Mapping helper (manual): map -> f : X \longrightarrow Y (defaults)
+    with_priority(
+      { trig = "map", name = "f : X -> Y" },
+      "${1:f} \\colon ${2:X} \\longrightarrow ${3:Y} $0"
+    ),
+
+    -- Smart inline mapping (autosnippets)
+    -- Type: f:X-->Y -> f \colon X \longrightarrow Y
+    S({
+      trig = "([%a][%w']*):([%w\\_%^{}]+)%-%->([%w\\_%^{}]+)",
+      name = "f:X-->Y -> f: X \\longrightarrow Y",
+      trigEngine = "pattern",
+      snippetType = "autosnippet",
+      priority = 130,
+    }, f(function(_, snip)
+      local fn, dom, cod = snip.captures[1], snip.captures[2], snip.captures[3]
+      return string.format("%s \\colon %s \\longrightarrow %s ", fn, dom, cod)
+    end)),
+
+    -- Type: f:X->Y -> f \colon X \to Y
+    S({
+      trig = "([%a][%w']*):([%w\\_%^{}]+)%->([%w\\_%^{}]+)",
+      name = "f:X->Y -> f: X \\to Y",
+      trigEngine = "pattern",
+      snippetType = "autosnippet",
+      priority = 120,
+    }, f(function(_, snip)
+      local fn, dom, cod = snip.captures[1], snip.captures[2], snip.captures[3]
+      return string.format("%s \\colon %s \\to %s ", fn, dom, cod)
+    end)),
     -- Examples you can copy/uncomment for later:
     -- S({ trig = "ddx", name = "d/dx", snippetType = "autosnippet" },
     --   fmt("\\frac{{\\mathrm{{d}}}}{{\\mathrm{{d}}}x} {}", { i(0) })
