@@ -254,6 +254,9 @@ Arrows and maps
 | --> | \longrightarrow | Math | No | New pack |
 | ora/ola wrappers | over/left arrows | Math | No | New pack |
 | fun | f : X \R \to \R : … | Math | No | New pack |
+| map | ${1:f} \colon ${2:X} \longrightarrow ${3:Y} … | Math | No | Custom; quick mapping skeleton |
+| ([%a][%w']*):([%w\\_%^{}]+)%-%->([%w\\_%^{}]+) | f \colon X \longrightarrow Y | Math | Yes | Custom; type `f:X-->Y` |
+| ([%a][%w']*):([%w\\_%^{}]+)%->([%w\\_%^{}]+) | f \colon X \to Y | Math | Yes | Custom; type `f:X->Y` |
 
 Misc
 | Trigger | Expands to | Mode | Auto? | Notes |
@@ -270,6 +273,11 @@ Your custom file
 | Trigger | Expands to | Mode | Auto? | Notes |
 | --- | --- | --- | --- | --- |
 | ddt | \frac{\mathrm{d}}{\mathrm{d}t} | Math | No | Custom example; NoBackslash |
+| ([f])(x) | f(x) | Math | Yes | Custom; type `fx` (only f) |
+| ([f])'(x) | f'(x) | Math | Yes | Custom; type `f'x` (only f) |
+| map | ${1:f} \colon ${2:X} \longrightarrow ${3:Y} … | Math | No | Custom mapping helper |
+| ([%a][%w']*):([%w\\_%^{}]+)%-%->([%w\\_%^{}]+) | f \colon X \longrightarrow Y | Math | Yes | Autosnippet; type `f:X-->Y` |
+| ([%a][%w']*):([%w\\_%^{}]+)%->([%w\\_%^{}]+) | f \colon X \to Y | Math | Yes | Autosnippet; type `f:X->Y` |
 
 Notes
 - Custom macros used by your overlay: \Var, \Cov, \identity, \quotient, \at, \Homomorphism, \Object, \Morphism — make sure these are defined in your preamble.
