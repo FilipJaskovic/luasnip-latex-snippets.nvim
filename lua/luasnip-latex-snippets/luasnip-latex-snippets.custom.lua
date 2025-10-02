@@ -55,29 +55,29 @@ function M.retrieve(is_math)
       "\\frac{\\mathrm{d}}{\\mathrm{d}t} $0"
     ),
 
-    -- f(x) helpers: fx -> f(x), gx -> g(x), hx -> h(x)
-    S({
-      trig = "([f])([A-Za-z])",
-      name = "f(x) from fx/gx/hx",
-      trigEngine = "pattern",
-      snippetType = "autosnippet",
-      priority = 120,
-    }, f(function(_, snip)
-      local fn, arg = snip.captures[1], snip.captures[2]
-      return string.format("%s(%s) ", fn, arg)
-    end)),
+-- f(x) helper: only fx -> f(x)
+S({
+  trig = "([f])(x)",
+  name = "f(x) from fx",
+  trigEngine = "pattern",
+  snippetType = "autosnippet",
+  priority = 120,
+}, f(function(_, snip)
+  local fn, arg = snip.captures[1], snip.captures[2]
+  return string.format("%s(%s) ", fn, arg)
+end)),
 
-    -- Prime variant: f'x -> f'(x), etc.
-    S({
-      trig = "([f])'([A-Za-z])",
-      name = "f'(x) from f'x/g'y/h'z",
-      trigEngine = "pattern",
-      snippetType = "autosnippet",
-      priority = 120,
-    }, f(function(_, snip)
-      local fn, arg = snip.captures[1], snip.captures[2]
-      return string.format("%s'(%s) ", fn, arg)
-    end)),
+-- Prime variant: only f'x -> f'(x)
+S({
+  trig = "([f])'(x)",
+  name = "f'(x) from f'x",
+  trigEngine = "pattern",
+  snippetType = "autosnippet",
+  priority = 120,
+}, f(function(_, snip)
+  local fn, arg = snip.captures[1], snip.captures[2]
+  return string.format("%s'(%s) ", fn, arg)
+end)),
 
     -- Examples you can copy/uncomment for later:
     -- S({ trig = "ddx", name = "d/dx", snippetType = "autosnippet" },
