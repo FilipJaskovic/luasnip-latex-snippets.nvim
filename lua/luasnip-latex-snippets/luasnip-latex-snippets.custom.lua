@@ -57,7 +57,7 @@ function M.retrieve(is_math)
 
     -- f(x) helpers: fx -> f(x), gx -> g(x), hx -> h(x)
     S({
-      trig = "([fgh])([A-Za-z])",
+      trig = "([f])([A-Za-z])",
       name = "f(x) from fx/gx/hx",
       trigEngine = "pattern",
       snippetType = "autosnippet",
@@ -69,7 +69,7 @@ function M.retrieve(is_math)
 
     -- Prime variant: f'x -> f'(x), etc.
     S({
-      trig = "([fgh])'([A-Za-z])",
+      trig = "([f])'([A-Za-z])",
       name = "f'(x) from f'x/g'y/h'z",
       trigEngine = "pattern",
       snippetType = "autosnippet",
