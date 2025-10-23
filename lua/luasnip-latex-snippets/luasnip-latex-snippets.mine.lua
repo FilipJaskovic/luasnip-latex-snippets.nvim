@@ -664,9 +664,9 @@ function M.retrieve(is_math)
   table.insert(
     snips,
     s(
-      { trig = "\\([A-Za-z])", name = "\\mathbb{A}", regTrig = true, wordTrig = false },
+      { trig = "\\([A-Za-z])\\1", name = "\\mathbb{A}", regTrig = true, wordTrig = false },
       f(function(_, snip)
-        return "\\mathbb{" .. snip.captures[1]:upper() .. "} "
+        return "\\mathbb{" .. snip.captures[1] .. "} "
       end),
       { condition = in_math }
     )
@@ -874,9 +874,9 @@ function M.retrieve(is_math)
   table.insert(
     snips,
     s(
-      { trig = [[\\\([A-Za-z]\)]], regTrig = true, trigEngine = "vim", name = "\\mathbb{A}", snippetType = "autosnippet" },
+      { trig = [[\\\([A-Za-z]\)\1]], regTrig = true, trigEngine = "vim", name = "\\mathbb{A}", snippetType = "autosnippet" },
       f(function(_, snip)
-        return "\\mathbb{" .. snip.captures[1]:upper() .. "} "
+        return "\\mathbb{" .. snip.captures[1] .. "} "
       end),
       { condition = in_math }
     )
