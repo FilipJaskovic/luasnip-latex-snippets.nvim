@@ -59,7 +59,7 @@ Math delimiters and wrappers
 | rm | \mathrm{…} | Math | No | Overlay |
 | Acal/acal | \mathcal{A} | Math | No | Overlay (pattern) |
 | Ascr/ascr | \mathscr{A} | Math | No | Overlay (pattern) |
-| \a (any letter) | \mathbb{A} | Math | Yes | Both sets provide; same result |
+| \ll (any double letter) | \mathbb{l} | Math | Yes | Both sets provide; same result |
 
 Math environments
 | Trigger | Expands to | Mode | Auto? | Notes |
@@ -219,7 +219,7 @@ Postfix wrappers (attach a short marker after a token)
   - tokenbf → \mathbf{token}
   - tokenbm → \bm{token} (needs bm)
   - token,. or token., → \vec{token}
-  - \a (any letter) → \mathbb{A}
+  - \ll (any double letter) → \mathbb{l}
   - \bXYn → X_{Y+n} (single letters, n digit)
 - New pack (no-backslash word wrappers):
   - xbar → \overline{x}
